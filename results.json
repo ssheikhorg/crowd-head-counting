@@ -1,0 +1,28 @@
+{
+  "image_paths": [
+    "data/UoB_Graduation_Ceremony_Day/DSC01547.jpg",
+    "data/UoB_Graduation_Ceremony_Day/DSC01553.jpg",
+    "data/UoB_Graduation_Ceremony_Day/DSC01584.jpg",
+    "data/UoB_Graduation_Ceremony_Day/DSC01590.jpg",
+    "data/UoB_Graduation_Ceremony_Day/DSC01355.jpg",
+    "data/UoB_Graduation_Ceremony_Day/DSC01433.jpg",
+    "data/UoB_Graduation_Ceremony_Day/DSC01427.jpg",
+    "data/UoB_Graduation_Ceremony_Day/DSC01341.jpg",
+    "data/UoB_Graduation_Ceremony_Day/DSC01369.jpg",
+    "data/UoB_Graduation_Ceremony_Day/DSC01396.jpg"
+  ],
+  "person_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "total_people": 0,
+  "average_per_image": 0.0
+}
