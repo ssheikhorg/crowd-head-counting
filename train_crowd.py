@@ -40,33 +40,28 @@ class CrowdAnalyzer:
             print("Error: Invalid image input")
             return 0
 
-        try:
-            # Run inference with slightly higher confidence to reduce false positives
-            results = self.model(image, conf=0.3, verbose=False)
-            person_count = 0
+        # Run inference with slightly higher confidence to reduce false positives
+        results = self.model(image, conf=0.3, verbose=False)
+        person_count = 0
 
-            for result in results:
-                # Check if results have boxes attribute
-                if not hasattr(result, 'boxes'):
+        for result in results:
+            # Check if results have boxes attribute
+            if not hasattr(result, 'boxes'):
+                continue
+
+            for box in result.boxes:
+                # Skip if box doesn't have expected attributes
+                if not all(hasattr(box, attr) for attr in ['cls', 'conf']):
                     continue
 
-                for box in result.boxes:
-                    # Skip if box doesn't have expected attributes
-                    if not all(hasattr(box, attr) for attr in ['cls', 'conf']):
-                        continue
+                class_id = int(box.cls)
+                confidence = float(box.conf)
 
-                    class_id = int(box.cls)
-                    confidence = float(box.conf)
+                # Only count if class is person and confidence > threshold
+                if self.model.names[class_id] == "person" and confidence > 0.3:
+                    person_count += 1
 
-                    # Only count if class is person and confidence > threshold
-                    if self.model.names[class_id] == "person" and confidence > 0.3:
-                        person_count += 1
-
-            return person_count
-
-        except Exception as e:
-            print(f"Error during person counting: {str(e)}")
-            return 0
+        return person_count
 
     def _get_results(self):
         """Return results as a dictionary"""
@@ -79,9 +74,13 @@ class CrowdAnalyzer:
 
     def save_model(self, output_dir="model"):
         """Save the model for later use"""
-        os.makedirs(output_dir, exist_ok=True)
-        self.model.export(format="onnx", imgsz=[720, 1280], simplify=True)
-        print(f"Model saved to {output_dir}/")
+        try:
+            os.makedirs(output_dir, exist_ok=True)
+            self.model.export(format="onnx", imgsz=[720, 1280], simplify=True)
+            print(f"Model saved to {output_dir}/")
+        except Exception as e:
+            print(f"Error saving model: {str(e)}")
+            return False
 
     def save_results(self, output_file="results.json"):
         """Save analysis results to JSON"""
@@ -94,7 +93,7 @@ class CrowdAnalyzer:
 if __name__ == "__main__":
     # Example usage
     analyzer = CrowdAnalyzer()
-    results = analyzer.process_directory(image_dir="data/UoB_Graduation_Ceremony_Day", max_images=1)
+    results = analyzer.process_directory(image_dir="data/UoB_Graduation_Ceremony_Day", max_images=10)
     analyzer.save_model()
     analyzer.save_results()
 

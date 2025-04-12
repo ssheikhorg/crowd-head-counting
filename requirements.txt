@@ -1,3 +1,7 @@
-ultralytics
 numpy
 matplotlib
+onnxruntime
+ultralytics
+torch
+opencv-python
+onnx
