@@ -1,1 +1,8 @@
 .idea
+.DS_Store
+__pycache__
+data/.DS_Store
+
+
+model/*.h5
+model/*.tflite
