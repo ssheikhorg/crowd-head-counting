@@ -4,5 +4,5 @@ __pycache__
 data/.DS_Store
 
 # ignore trained models
-runs_optimized/yolov8m_crowd/weights/*
+runs_optimized/*
 models/*
