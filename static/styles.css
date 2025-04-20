@@ -126,7 +126,6 @@ header p {
     border-radius: var(--border-radius);
     margin-bottom: 1rem;
     object-fit: contain;
-    display: none;
 }
 
 .analyze-btn {

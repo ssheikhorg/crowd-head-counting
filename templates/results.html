@@ -55,11 +55,18 @@
     </div>
 
     <footer>
-        <p>© 2023 Crowd Counter AI | Powered by YOLOv8</p>
+        <p>© <span id="currentYear"></span> Crowd Counter AI | Powered by YOLOv8</p>
     </footer>
 
     <script>
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Log image URL for debugging
+        console.log('Result image URL:', '{{ image_url }}');
+
         function downloadImage(imageUrl) {
+            console.log('Downloading image:', imageUrl);
             const link = document.createElement('a');
             link.href = imageUrl;
             link.download = 'crowd-analysis-result.jpg';
