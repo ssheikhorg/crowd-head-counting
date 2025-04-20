@@ -3,6 +3,6 @@
 __pycache__
 data/.DS_Store
 
-
-model/*.h5
-model/*.tflite
+# ignore trained models
+runs_optimized/yolov8m_crowd/weights/*
+models/*
