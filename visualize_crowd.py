@@ -2,7 +2,7 @@ import os
 
 import matplotlib.pyplot as plt
 import json
-from train_crowd import CrowdAnalyzer
+from analyze import CrowdAnalyzer
 
 
 class CrowdVisualizer:
