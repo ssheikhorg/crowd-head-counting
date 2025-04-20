@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results | Crowd Counter</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Crowd Analysis Results</h1>
+            <a href="/" class="back-btn">← Analyze Another Image</a>
+        </header>
+
+        <div class="results-container">
+            <div class="image-section">
+                <div class="image-wrapper">
+                    <img id="resultImage" src="{{ image_url }}" alt="Analyzed crowd image">
+                    <div class="count-badge">{{ count }} people detected</div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h2>Detailed Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">{{ count }}</div>
+                        <div class="stat-label">Total People</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">{{ density }}</div>
+                        <div class="stat-label">Density Level</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">{{ "%.2f"|format(processing_time) }}s</div>
+                        <div class="stat-label">Processing Time</div>
+                    </div>
+                </div>
+
+                <div class="confidence-section">
+                    <h3>Detection Confidence</h3>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: {{ avg_confidence }}%;"></div>
+                    </div>
+                    <span>{{ "%.1f"|format(avg_confidence) }}% average confidence</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <button class="download-btn" onclick="downloadImage('{{ image_url }}')">Download Result</button>
+            <button class="download-btn secondary" onclick="window.print()">Print Report</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 Crowd Counter AI | Powered by YOLOv8</p>
+    </footer>
+
+    <script>
+        function downloadImage(imageUrl) {
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = 'crowd-analysis-result.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
