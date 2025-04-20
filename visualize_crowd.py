@@ -2,7 +2,6 @@ import os
 
 import matplotlib.pyplot as plt
 import json
-from analyze import CrowdAnalyzer
 
 
 class CrowdVisualizer:
@@ -13,17 +12,21 @@ class CrowdVisualizer:
     def show_bar_chart(self):
         """Show bar chart of person counts per image"""
         plt.figure(figsize=(12, 6))
-        plt.bar(range(len(self.results["image_paths"])),
-                self.results["person_counts"],
-                color='skyblue')
+        plt.bar(
+            range(len(self.results["image_paths"])),
+            self.results["person_counts"],
+            color="skyblue",
+        )
 
-        plt.xlabel('Image')
-        plt.ylabel('Number of Persons Detected')
-        plt.title('Crowd Engagement Analysis\nNumber of Persons Detected in Each Image')
+        plt.xlabel("Image")
+        plt.ylabel("Number of Persons Detected")
+        plt.title("Crowd Engagement Analysis\nNumber of Persons Detected in Each Image")
 
         # Use shortened image names for x-axis
-        image_names = [os.path.basename(path)[:15] + "..." for path in self.results["image_paths"]]
-        plt.xticks(range(len(image_names)), image_names, rotation=45, ha='right')
+        image_names = [
+            os.path.basename(path)[:15] + "..." for path in self.results["image_paths"]
+        ]
+        plt.xticks(range(len(image_names)), image_names, rotation=45, ha="right")
 
         plt.tight_layout()
         plt.show()
@@ -38,17 +41,21 @@ class CrowdVisualizer:
         labels = []
         for i, count in enumerate(self.results["person_counts"]):
             if count > threshold:
-                short_name = os.path.basename(self.results["image_paths"][i])[:10] + "..."
+                short_name = (
+                    os.path.basename(self.results["image_paths"][i])[:10] + "..."
+                )
                 labels.append(f"{short_name}\n{count} people")
             else:
                 labels.append("")
 
-        plt.pie(self.results["person_counts"],
-                labels=labels,
-                autopct=lambda p: f"{p:.1f}%\n({int(p / 100 * total)})" if p > 5 else "",
-                startangle=140)
+        plt.pie(
+            self.results["person_counts"],
+            labels=labels,
+            autopct=lambda p: f"{p:.1f}%\n({int(p / 100 * total)})" if p > 5 else "",
+            startangle=140,
+        )
 
-        plt.title('Distribution of Detected Persons Across Images')
+        plt.title("Distribution of Detected Persons Across Images")
         plt.show()
 
     def show_summary_stats(self):

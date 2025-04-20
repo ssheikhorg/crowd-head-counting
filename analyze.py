@@ -2,6 +2,7 @@ import cv2
 from ultralytics import YOLO
 import os
 
+
 class CrowdAnalyzer:
     def __init__(self, model_path="yolov8n.pt"):
         self.model = YOLO(model_path)
@@ -34,11 +35,11 @@ class CrowdAnalyzer:
         head_positions = []  # Store head coordinates
 
         for result in results:
-            if not hasattr(result, 'boxes'):
+            if not hasattr(result, "boxes"):
                 continue
 
             for box in result.boxes:
-                if not all(hasattr(box, attr) for attr in ['cls', 'xyxy']):
+                if not all(hasattr(box, attr) for attr in ["cls", "xyxy"]):
                     continue
 
                 if self.model.names[int(box.cls)] == "person":
@@ -60,7 +61,14 @@ class CrowdAnalyzer:
             cv2.circle(vis_img, (x, y), 3, (0, 0, 255), -1)  # 3px red dot
 
         # Add count text
-        cv2.putText(vis_img, f"Count: {analysis_result['count']}",
-                    (30, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.putText(
+            vis_img,
+            f"Count: {analysis_result['count']}",
+            (30, 60),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (0, 255, 0),
+            2,
+        )
 
         return vis_img

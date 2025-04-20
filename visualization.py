@@ -6,8 +6,13 @@ import matplotlib.pyplot as plt
 
 
 class HeadVisualizer:
-    def __init__(self, dot_radius=3, dot_color=(0, 0, 255),
-                 count_color=(0, 0, 255), font_scale=1.2):
+    def __init__(
+        self,
+        dot_radius=3,
+        dot_color=(0, 0, 255),
+        count_color=(0, 0, 255),
+        font_scale=1.2,
+    ):
         """
         Initialize visualizer with customization options
 
@@ -44,15 +49,17 @@ class HeadVisualizer:
         density = (density - density.min()) / (density.max() - density.min() + 1e-7)
 
         # Create binary map of head locations
-        binary = cv2.threshold((density * 255).astype(np.uint8),
-                               self.threshold, 255, cv2.THRESH_BINARY)[1]
+        binary = cv2.threshold(
+            (density * 255).astype(np.uint8), self.threshold, 255, cv2.THRESH_BINARY
+        )[1]
 
         # Find and scale contours
         scale_x = orig_w / density_map.shape[2]
         scale_y = orig_h / density_map.shape[1]
 
-        contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL,
-                                       cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(
+            binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+        )
 
         # Draw markers
         head_count = 0
@@ -62,14 +69,26 @@ class HeadVisualizer:
                 if M["m00"] > 0:
                     head_x = int(M["m10"] / M["m00"] * scale_x)
                     head_y = int(M["m01"] / M["m00"] * scale_y)
-                    cv2.circle(marked_img, (head_x, head_y),
-                               self.dot_radius, self.dot_color, -1)
+                    cv2.circle(
+                        marked_img,
+                        (head_x, head_y),
+                        self.dot_radius,
+                        self.dot_color,
+                        -1,
+                    )
                     head_count += 1
 
         # Add count text
-        cv2.putText(marked_img, f"{head_count}", (30, 60),
-                    cv2.FONT_HERSHEY_SIMPLEX, self.font_scale,
-                    self.count_color, 2, cv2.LINE_AA)
+        cv2.putText(
+            marked_img,
+            f"{head_count}",
+            (30, 60),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            self.font_scale,
+            self.count_color,
+            2,
+            cv2.LINE_AA,
+        )
 
         return marked_img
 
@@ -89,7 +108,7 @@ if __name__ == "__main__":
         dot_radius=4,
         dot_color=(0, 255, 255),  # Yellow dots
         count_color=(0, 255, 0),  # Green text
-        font_scale=1.5
+        font_scale=1.5,
     )
 
     # Example image path - adjust as needed
@@ -109,7 +128,9 @@ if __name__ == "__main__":
     dummy_density = np.zeros((1, h, w, 1))
     for _ in range(150):  # Simulate 150 detected heads
         x, y = np.random.randint(10, w - 10), np.random.randint(10, h - 10)
-        dummy_density[0, y - 3:y + 4, x - 3:x + 4, 0] = np.random.uniform(0.5, 1.0, (7, 7))
+        dummy_density[0, y - 3 : y + 4, x - 3 : x + 4, 0] = np.random.uniform(
+            0.5, 1.0, (7, 7)
+        )
 
     # Option 2: Load actual model output if available (better)
     # dummy_density = model.predict(preprocess_image(original_img))
@@ -125,7 +146,7 @@ if __name__ == "__main__":
     # Display results
     plt.figure(figsize=(15, 10))
     plt.imshow(marked_img)
-    plt.axis('off')
+    plt.axis("off")
     plt.title("Graduation Ceremony Crowd Detection")
     plt.show()
 
