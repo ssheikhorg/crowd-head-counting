@@ -113,7 +113,7 @@ async def predict(file: UploadFile = File(...)):
         return {
             "success": True,
             "count": count,
-            "image_url": f"/{result_image_path}",
+            "image_url": result_image_path,
             "density": density,
             "avg_confidence": avg_confidence,
             "processing_time": processing_time,
