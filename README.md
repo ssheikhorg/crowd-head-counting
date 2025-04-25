@@ -1,26 +1,45 @@
-# Crowd Counting with YOLOv8
+# Crowd Counting System for Bradford 2025
 
-![img.png](img.png)
+This project implements a **crowd counting system** using the **YOLOv8** object detection model for the **Bradford 2025 UK City of Culture** initiative. The system is designed to count the number of people in crowd images taken during public events, helping event organizers ensure public safety and efficient crowd management.
 
-A FastAPI web application for real-time crowd counting using Ultralytics YOLOv8 object detection model. Upload an image and get accurate head counts with density analysis.
+## Project Overview
+
+The main goal of this project is to develop a real-time crowd-counting application that can be deployed for events, ensuring safety and assisting with crowd management. The system uses **YOLOv8** to detect and count people in images, offering a user-friendly web interface built with **FastAPI**.
 
 ## Features
 
-- 🎯 **Accurate Detection**: Custom-trained YOLOv8 model optimized for crowd scenes
-- ⚡ **Fast Processing**: Results in seconds with GPU acceleration
-- 📊 **Detailed Analytics**: Head count, density level, and confidence metrics
-- 🖼️ **Visual Results**: Bounding box annotations on processed images
-- 📱 **Responsive Design**: Works on desktop and mobile devices
+- **Crowd Counting**: Accurately counts the number of individuals in images of public events.
+- **Real-Time Processing**: Provides real-time crowd analysis with YOLOv8 object detection.
+- **FastAPI Interface**: A simple web interface for uploading images and viewing results.
+- **Model Export**: Trained model is exported to ONNX format for deployment flexibility.
+- **Privacy Measures**: Implements privacy-preserving features such as data deletion after processing.
 
-## Prerequisites
+## Dataset
 
-- Python 3.12+
-- NVIDIA GPU (recommended) with CUDA 11.7
-- Git
+The system uses three main datasets for training the YOLOv8 model:
+
+1. **ShanghaiTech Dataset**: A large-scale dataset containing images with varying crowd densities.
+2. **UCF_CC_50 Dataset**: A dataset containing images of extremely dense crowds.
+3. **UoB Graduation Ceremony Dataset**: A custom dataset with images of crowd gatherings at University of Bradford graduation ceremonies.
+
+### Dataset Preprocessing
+
+The images were preprocessed and resized to **640x640 pixels** to match the YOLOv8 model’s input size. Annotations were converted to **YOLO format** (normalized bounding boxes) for compatibility with the model.
 
 ## Installation
 
+### Requirements
+
+- Python 3.12+
+- PyTorch
+- FastAPI
+- Ultralytics YOLOv8
+- OpenCV
+- Other dependencies listed in `requirements.txt`
+
+### Setup
+
 1. Clone the repository:
-```bash
-git clone https://github.com/ssheikhorg/crowd-counter.git
-cd crowd-counter
+   ```bash
+   git clone https://github.com/ssheikhorg/crowd-head-counting.git
+   cd crowd-head-counting
