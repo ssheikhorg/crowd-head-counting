@@ -43,3 +43,14 @@ The images were preprocessed and resized to **640x640 pixels** to match the YOLO
    ```bash
    git clone https://github.com/ssheikhorg/crowd-head-counting.git
    cd crowd-head-counting
+    ```
+
+2. Download models and place them in the `models` directory from this [link](https://drive.google.com/drive/folders/116VfRuoNsNbmiWLyR978QCxVuyROCtcK?usp=drive_link).
+3. Install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Run the FastAPI server:
+   ```bash
+   python main.py
+   ```

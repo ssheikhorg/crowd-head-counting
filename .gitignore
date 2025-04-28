@@ -4,7 +4,6 @@ __pycache__
 data/.DS_Store
 
 # ignore trained models
-runs_optimized/*
 models/*
 static/results/*
 yolov8m.pt
