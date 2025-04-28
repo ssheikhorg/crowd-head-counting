@@ -18,7 +18,7 @@ def train_model(data_yaml, epochs=100, imgsz=640, batch=16, resume=False):
     # Determine model source
     model_path = "yolov8m.pt"  # Default pretrained model
     if resume:
-        resume_path = Path("runs_optimized/yolov8m_crowd/weights/last.pt")
+        resume_path = Path("models/last.pt")
         if resume_path.exists():
             model_path = str(resume_path)
             print(f"Resuming training from {model_path}")
